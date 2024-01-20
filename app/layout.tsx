@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ModalProvider from "@/provider/ModalProvider";
 import ToasterProvider from "@/provider/ToasterProvider";
+import Providers from "@/components/Providers";
 
 const font = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
+        <Providers>
+          <ToasterProvider />
           <ModalProvider />
           <Navbar>{children}</Navbar>
+        </Providers>
       </body>
     </html>
   );

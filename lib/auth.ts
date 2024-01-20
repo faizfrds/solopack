@@ -1,11 +1,13 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import { db } from "./db";
 import { PrismaAdapter} from "@next-auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import { nanoid} from "nanoid"
+import { getSession } from "next-auth/react";
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(db),
+    secret: process.env.NEXT_AUTH_SECRET,
     session: {
         strategy: "jwt"
     },
@@ -67,3 +69,5 @@ export const authOptions: NextAuthOptions = {
         }
     },
 }
+
+export const getAuthSession = async () => await getServerSession(authOptions)

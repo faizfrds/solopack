@@ -1,116 +1,35 @@
-"use client";
+import { HiMenu } from "react-icons/hi";
+import toast from "react-hot-toast";
 
-import { twMerge } from "tailwind-merge";
-import {
-  HiHeart,
-  HiMenu,
-  HiOutlineChevronDown,
-  HiOutlineChevronUp,
-  HiOutlineX,
-  HiArrowSmRight,
-  HiHome,
-} from "react-icons/hi";
-import { usePathname } from "next/navigation";
-import { useLayoutEffect, useMemo, useState, useEffect } from "react";
-// import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
-import classNames from "classnames";
-
-import Button from "./Button";
-import Header from "./Header";
-import useAuthModal from "@/hooks/useAuthModal";
-// import { useUser } from "@/hooks/useUser";
-import useSidebar from "@/hooks/useSidebar";
-import SdBar from "./Sidebar";
-import Sidebar from "./Sidebar";
+import { getAuthSession } from "@/lib/auth";
+import Logout from "./Logout";
+import SignIn from "./SignIn";
+import Middleware from "./Middleware";
 
 interface NavbarProps {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ className, children }) => {
-  const router = useRouter();
-  const authModal = useAuthModal();
-  const sidebarShow = useSidebar();
-  //   const navOpen = useNavbar((state) => state.onToggle)
+const Navbar: React.FC<NavbarProps> = async ({ children }) => {
+  // const session = await getAuthSession();
 
-  //   const supabaseClient = useSupabaseClient();
-  //   const { user } = useUser();
-
-  const pathname = usePathname();
-
-  const checkPath = () => {
-    if (pathname == "/") {
-      return <Header />;
-    }
-  };
-
-  //   const handleLogout = async () => {
-  //     const { error } = await supabaseClient.auth.signOut();
-  //     router.refresh();
-
-  //     if (error) {
-  //       toast.error(error.message);
-  //     } else {
-  //       sidebarShow.onClose;
-  //       router.push("/");
-  //       toast.success("Logged Out");
-  //     }
-  //   };
-
-  //   const checkLogin = () => {
-  //     if (!user) {
-  //       return authModal.onOpen;
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     if (window.innerWidth > 1023) {
-  //       if (pathname !== "/") sidebarShow.onClose;
-  //       else {
-  //         navOpen();
-  //       }
-  //     }
-  //   }, []);
+  let session = await getAuthSession();
 
   return (
-    <>
-      <div className="flex justify-center stick bg-emerald-400 text-center">
-        <div className="flex justify-between text-center items-center w-full mx-12 p-3 text-white">
-          {sidebarShow.isOpen ? (
-                <div
-                className={classNames({
-                  // 👇 use grid layout
-                  "grid min-h-screen": true,
-                  // 👇 toggle the width of the sidebar depending on the state
-                  "grid-cols-sidebar": !sidebarShow.isOpen,
-                  "grid-cols-sidebar-collapsed": sidebarShow.isOpen,
-                  // 👇 transition animation classes
-                  "transition-[grid-template-columns] duration-300 ease-in-out": true,
-                })}
-              >
-              <Sidebar />
-            </div>
-          ) : (
-            <></>
-          )}
+    <div>
+      <div className="flex justify-center bg-transparent text-center flex-no-wrap top-0 relative">
+        <div className="flex justify-between text-center items-center w-full mx-12 p-3  text-rose-400">
           <div>
-            <button onClick={sidebarShow.onToggle}>
-              <HiMenu size={20} className="text-white" />
-            </button>
+            <HiMenu size={20} className=" text-rose-400" />
           </div>
-          <div>Solopack</div>
+          <h1 className="text-3xl font-bold">Solopack</h1>
 
-          <div>
-            <Button onClick={authModal.onOpen}>Login</Button>
-          </div>
+          <div>{session ? <Logout /> : <SignIn />}</div>
         </div>
       </div>
-
       {children}
-    </>
+    </div>
   );
 };
 

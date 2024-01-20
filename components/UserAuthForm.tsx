@@ -16,18 +16,19 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props }) => {
     setIsLoading(true);
 
     try {
-      await signIn("google");
+      await signIn("google")
     } catch (error) {
       toast.error("Failed to login")
     } finally {
       setIsLoading(false);
+      toast.loading("Redirecting")
     }
   };
 
   return (
     <div className={twMerge("flex justify-center", className)} {...props}>
       <Button
-        className="bg-black items-center flex justify-center gap-x-2"
+        className="bg-black items-center flex justify-center gap-x-2 text-white hover:bg-neutral-800"
         onClick={loginWithGoogle}
         isLoading={isLoading}
       >
