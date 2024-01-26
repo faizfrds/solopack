@@ -16,20 +16,6 @@ export async function POST(req: Request) {
         console.log(body, "AJF")
         const {title, content, locationId} = PostValidator.parse(body) 
 
-        // const postExists = await db.post.findFirst({
-        //     where: {
-        //         title: title,
-        //         content: content,
-        //         locationId: locationId,
-        //     },
-        // })
-
-        // console.log(postExists)
-
-        // if (postExists) {
-        //     return new Response("Post already exists", {status: 409})
-        // }
-
         console.log("HERE")
         const post = await db.post.create({
             data: {

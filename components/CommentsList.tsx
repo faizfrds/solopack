@@ -6,18 +6,17 @@ import { getAuthSession } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { JsonValue } from "@prisma/client/runtime/library";
 import PostCards from "./PostCards";
+import CommentCards from "./CommentCards";
 
-type PostType = {
+type CommentType = {
   id: string;
-  title: string;
-  content: JsonValue;
+  content: string;
   createdAt: Date;
   updatedAt: Date;
-  locationId: string;
   authorId: string;
 };
 
-const PostsList = async ({
+const CommentsList = async ({
   children,
   slug,
 }: {
@@ -31,16 +30,16 @@ const PostsList = async ({
 
   //determines if user is subscribed to this location
   //   const post = async (index: number) = {
-  let items: PostType[] = await db.post.findMany({
+  let comments: CommentType[] = await db.comment.findMany({
     where: {
-      location: {
-        name: slug,
-      },
+      postId: slug,
     },
     orderBy: {
       createdAt: "desc",
     },
   });
+
+  
 
   const author = async (authorId: string) => {
     return await db.user.findFirst({
@@ -50,48 +49,16 @@ const PostsList = async ({
     });
   };
 
-  //   const fetchItems = async () => {
-  //     items = await db.post.findMany({
-  //       take: 5,
-  //       where: {
-  //         location: {
-  //           name: slug,
-  //         },
-  //       },
-  //       orderBy: {
-  //         createdAt: "asc",
-  //       },
-  //     });
-  //   };
-
-  //   const location = await db.location.findFirst({
-  //     where: {
-  //       name: slug,
-  //     },
-  //     include: {
-  //       posts: {
-  //         include: {
-  //           author: true,
-  //           votes: true,
-  //         },
-  //       },
-  //     },
-  //   });
-
-  //   useEffect(() => {
-  //     posts(index);
-  //   }, []);
-
-  //   if (!location) return notFound();
+  
 
   return (
-    <div className="flex flex-col w-full gap-y-2">
-      {items.map((post) => (
-        <PostCards
-          id={post.id}
-          title={post.title}
-          content={post.content.body || null}
-          author={author(post.authorId).then(res => res?.name)}
+    <div className="flex flex-col w-full gap-y-1">
+      {comments.map((com) => (
+        <CommentCards
+          id={com.id}
+          content={com.content}
+          author={author(com.authorId).then(res => res?.name)}
+          date={com.createdAt.toString()}
         />
       ))}
 
@@ -116,4 +83,4 @@ const PostsList = async ({
   );
 };
 
-export default PostsList;
+export default CommentsList;
