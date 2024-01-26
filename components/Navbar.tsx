@@ -5,6 +5,7 @@ import { getAuthSession } from "@/lib/auth";
 import Logout from "./Logout";
 import SignIn from "./SignIn";
 import Middleware from "./Middleware";
+import Link from "next/link";
 
 interface NavbarProps {
   className?: string;
@@ -23,9 +24,15 @@ const Navbar: React.FC<NavbarProps> = async ({ children }) => {
           <div>
             <HiMenu size={20} className=" text-rose-400" />
           </div>
-          <h1 className="text-3xl font-bold">Solopack</h1>
-
-          <div>{session ? <Logout /> : <SignIn />}</div>
+          <Link href="/">
+            <h1 className="text-3xl font-bold">Solopack</h1>
+          </Link>
+          <div>{session ? (
+            <div className="flex items-center">
+              <Logout /> 
+            </div>
+          ) : 
+            <SignIn />}</div>
         </div>
       </div>
       {children}

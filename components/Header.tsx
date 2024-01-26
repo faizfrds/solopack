@@ -1,11 +1,12 @@
-"use client";
-
 import { HiSearch } from "react-icons/hi";
 import { twMerge } from "tailwind-merge";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import Button from "./Button";
 import Navbar from "./Navbar";
+import SearchList from "./SearchList";
+import useSearch from "@/hooks/useSearch";
+
 
 interface HeaderProps {
   className?: string;
@@ -15,7 +16,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className }) => {
 
   return (
-    <div className="flex items-center justify-center h-screen bg-fixed bg-center bg-cover bg-[url('/marquee-pic.jpeg')] md:p-2 relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-fixed bg-center bg-cover bg-[url('/marquee-pic.jpeg')] md:p-2 relative">
       <div className="md:w-8/12 w-10/12 text-center">
         <div className="flex text-white justify-center lg:text-6xl text-4xl font-bold text-center">
           Discover your next experience
@@ -26,9 +27,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         <p className="text-center text-lg text-white font-extrabold">
           or
         </p>
-        <Link href="/create">
-          <Button className="justify-center w-fit">Create Community</Button>
-        </Link>
+        
 
         {/* <div className="flex lg:hidden">
             
@@ -39,6 +38,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           )}
         </div> */}
       </div>
+      <Link href="/create" className="text-center justify-center flex w-fit">
+          <Button className="justify-center w-fit">Create Community</Button>
+        </Link>
     </div>
   );
 };

@@ -65,7 +65,9 @@ model VerificationToken {
 
 model Location {
   id          String         @id @default(cuid())
-  name        String         @unique
+  name        String         
+  state       String?
+  country     String
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   posts       Post[]
@@ -74,6 +76,7 @@ model Location {
   subscribers Subscription[]
   userId      String?
 
+  @@unique([name, state, country])
   @@index([name])
 }
 

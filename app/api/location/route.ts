@@ -1,6 +1,7 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { LocationValidator } from "@/lib/location";
+import { LocationValidator } from "@/lib/validator/location";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 export async function POST(req: Request) {
@@ -12,13 +13,16 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json()
-        const {name} = LocationValidator.parse(body) 
+        const {name, state, country} = LocationValidator.parse(body) 
 
         const locationExists = await db.location.findFirst({
             where: {
                 name,
+                state,
+                country,
             },
         })
+
 
         if (locationExists) {
             return new Response("Location already exists", {status: 409})
@@ -27,6 +31,8 @@ export async function POST(req: Request) {
         const location = await db.location.create({
             data: {
                 name,
+                state,
+                country,
                 creatorId: session.user.id,
             },
         })
@@ -38,7 +44,7 @@ export async function POST(req: Request) {
             },
         })
 
-        return new Response(location.name)
+        return new Response(location.country)
     } catch (error) {
         // wrong data sent in the parsing
         if (error instanceof z.ZodError){ 
