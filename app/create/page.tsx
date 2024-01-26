@@ -11,7 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { HiArrowLeft } from "react-icons/hi";
-import countryList from "react-select-country-list";
+import countryList from "react-select-country-list"
 import Select, { SingleValue } from "react-select";
 
 

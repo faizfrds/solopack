@@ -17,6 +17,7 @@
     "@prisma/client": "^5.8.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@tanstack/react-query": "^5.17.19",
+    "@types/react-select-country-list": "^2.2.3",
     "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
