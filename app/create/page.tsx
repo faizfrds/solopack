@@ -22,7 +22,7 @@ type CountryType = {
 const Page = () => {
   const [locName, setLocName] = useState<string>("");
   const [locState, setLocState] = useState<string>("");
-  const [locCountry, setLocCountry] = useState<string>("");
+  const [locCountry, setLocCountry] = useState<CountryType>();
 
   const options = useMemo(() => countryList().getData(), []);
 
@@ -37,7 +37,7 @@ const Page = () => {
     await createCommunity();
     setLocName("");
     setLocState("");
-    setLocCountry("");
+    setLocCountry({label: ""});
   };
 
   const { mutate: createCommunity, isPending } = useMutation({
@@ -45,7 +45,7 @@ const Page = () => {
       const payload: CreateLocationPayload = {
         name: locName,
         state: locState,
-        country: locCountry?.label,
+        country: locCountry!.label,
       };
       const { data } = await axios.post("/api/location", payload);
       return data as string;
