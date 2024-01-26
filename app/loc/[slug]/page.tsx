@@ -32,7 +32,7 @@ const Page = async ({ params }: PageProps) => {
   if (!location) return notFound();
 
   return (
-    <div>
+    <div className="md:mx-0 mx-2">
       <h1 className="font-bold text-3xl md:text-4xl h-14">
         {location.name}
         {", " + location?.state}, {location.country}

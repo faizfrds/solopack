@@ -27,21 +27,7 @@ const Layout = async ({
     },
   });
 
-  //determines if user is subscribed to this post
-  // const subscription = !session?.user
-  //   ? undefined
-  //   : await db.subscription.findFirst({
-  //       where: {
-  //         location: {
-  //           name: slug,
-  //         },
-  //         user: {
-  //           id: session.user.id,
-  //         },
-  //       },
-  //     });
 
-  // const isSubscribed = !!subscription;
 
   if (!post) return notFound();
 

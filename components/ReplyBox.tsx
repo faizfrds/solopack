@@ -60,6 +60,7 @@ const ReplyBox: React.FC<ReplyBoxProps> = ({ postId, authorId, name, pic }) => {
     onSuccess: () => {
       setContent("");
       toast.success("Successfully created comment");
+      router.refresh();
     },
   });
 
@@ -67,8 +68,12 @@ const ReplyBox: React.FC<ReplyBoxProps> = ({ postId, authorId, name, pic }) => {
     await createPost();
   };
 
+  const handleKeyPress = (event: { key: any }) => {
+    if (event.key === "Enter") return handleSubmit();
+  };
+
   return (
-    <div className="w-full mt-2 bg-zince-50 rounded-md items-center">
+    <div className="md:w-full mt-2 bg-zince-50 rounded-md items-center md:mx-0 mx-2">
       {/* <div className="w-full h-fit flex items-center mb-3 gap-x-2">
         <img className="rounded-full h-5 w-5" src={pic} />
         <p>{name}</p>
@@ -80,6 +85,7 @@ const ReplyBox: React.FC<ReplyBoxProps> = ({ postId, authorId, name, pic }) => {
             placeholder="Add a comment"
             className="border-none resize-none appearance-none overflow-hidden bg-transparent text-sm focus:outline-none bg-zinc-100"
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <Button
             type="submit"
@@ -87,13 +93,11 @@ const ReplyBox: React.FC<ReplyBoxProps> = ({ postId, authorId, name, pic }) => {
               handleSubmit();
             }}
             isLoading={isPending}
-            className="w-[5%] text-right h-fit bg-transparent hover:bg-transparent hover:scale-110"
+            className="lg:flex hidden w-[5%] text-right h-fit bg-transparent hover:bg-transparent hover:scale-110"
           >
             <FaLocationArrow
               size={20}
-              onClick={() => {
-                handleSubmit();
-              }}
+              className="lg:flex hidden"
             />
           </Button>
         </div>

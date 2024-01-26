@@ -13,9 +13,21 @@ interface PostProps {
   };
 }
 
+interface PostType {
+    id: string;
+    title: string;
+    content: {
+      body: string;
+    }
+    createdAt: Date;
+    updatedAt: Date;
+    locationId: string;
+    authorId: string;
+}
+
 const Post = async ({ params }: PostProps) => {
   const { slug } = params;
-  const post = await db.post.findFirst({
+  const post: PostType | null = await db.post.findFirst({
     where: { id: slug },
     include: {
       comments: {
@@ -34,14 +46,12 @@ const Post = async ({ params }: PostProps) => {
 
   return (
     <div>
-      <div className="w-full rounded-md p-8 border-2 border-zinc-200">
-        <h1 className="font-bold text-3xl md:text-4xl h-14">{post?.title}</h1>
-
-        {/* show posts in user feed */}
+      <div className="md:w-full rounded-md md:p-8 md:mx-0 mx-2 p-2 border-2 border-zinc-200">
+        <h1 className="flex md:mb-2 p-0 text-lg text-zinc-800 font-semibold">{post?.title}</h1>
         <div>{post?.content.body}</div>
       </div>
-      <ReplyBox postId={post!.id} authorId={post!.authorId} name={session!.user.email} pic={session!.user.image} />
-      <h1 className="text-2xl mt-4 mb-2 font-bold text-zinc-400">
+      <ReplyBox postId={post!.id} authorId={session?.user.id} name={session!.user.email} pic={session!.user.image} />
+      <h1 className="text-2xl mt-4 mb-2 font-bold text-zinc-400 md:mx-0 mx-2">
         Comments
       </h1>
       <CommentsList slug={params.slug} />

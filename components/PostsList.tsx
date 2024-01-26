@@ -10,7 +10,9 @@ import PostCards from "./PostCards";
 type PostType = {
   id: string;
   title: string;
-  content: JsonValue;
+  content: {
+    body: string;
+  };
   createdAt: Date;
   updatedAt: Date;
   locationId: string;
@@ -31,11 +33,14 @@ const PostsList = async ({
 
   //determines if user is subscribed to this location
   //   const post = async (index: number) = {
-  let items: PostType[] = await db.post.findMany({
+  let items = await db.post.findMany({
     where: {
       location: {
         name: slug,
       },
+    },
+    include: {
+      author: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -50,39 +55,7 @@ const PostsList = async ({
     });
   };
 
-  //   const fetchItems = async () => {
-  //     items = await db.post.findMany({
-  //       take: 5,
-  //       where: {
-  //         location: {
-  //           name: slug,
-  //         },
-  //       },
-  //       orderBy: {
-  //         createdAt: "asc",
-  //       },
-  //     });
-  //   };
-
-  //   const location = await db.location.findFirst({
-  //     where: {
-  //       name: slug,
-  //     },
-  //     include: {
-  //       posts: {
-  //         include: {
-  //           author: true,
-  //           votes: true,
-  //         },
-  //       },
-  //     },
-  //   });
-
-  //   useEffect(() => {
-  //     posts(index);
-  //   }, []);
-
-  //   if (!location) return notFound();
+  const session = await getAuthSession() ? true : false;
 
   return (
     <div className="flex flex-col w-full gap-y-2">
@@ -90,28 +63,12 @@ const PostsList = async ({
         <PostCards
           id={post.id}
           title={post.title}
-          content={post.content.body || null}
-          author={author(post.authorId).then(res => res?.name)}
+          content={post.content.body}
+          author={post.author.name}
+          auth={session}
+          email={post.author.email}
         />
       ))}
-
-      {/* <div>
-        <InfiniteScroll
-          dataLength={5}
-          next={fetchItems}
-          hasMore={items.length > 0} // Replace with a condition based on your data source
-          loader={<p>Loading...</p>}
-          endMessage={<p>No more data to load.</p>}
-        >
-          {items.map((post) => (
-            <PostCards
-              title={post.title}
-              content={post.content.body || null}
-              author={post.authorId}
-            />
-          ))}
-        </InfiniteScroll>
-      </div> */}
     </div>
   );
 };

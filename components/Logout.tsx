@@ -4,8 +4,8 @@ import React from "react";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { getServerSession } from "next-auth";
-import { Session } from "next-auth";
+import { IoMdExit } from "react-icons/io";
+
 
 
 export default function Logout() {
@@ -18,8 +18,11 @@ export default function Logout() {
   };
 
   return (
-    <Button onClick={onClick}>
+    <Button onClick={onClick} className="md:bg-zinc-200 bg-transparent md:p-2 py-2 px-0">
+      <IoMdExit className="md:hidden flex" size={25}/>
+      <p className="hidden md:flex">
       Log Out
+      </p>
     </Button>
   );
 }

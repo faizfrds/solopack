@@ -16,31 +16,21 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className }) => {
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-fixed bg-center bg-cover bg-[url('/marquee-pic.jpeg')] md:p-2 relative">
+    <div className="flex flex-col items-center justify-center h-[90vh] md:h-screen bg-fixed bg-center bg-cover bg-[url('/marquee-pic.jpeg')] md:p-2 relative">
       <div className="md:w-8/12 w-10/12 text-center">
         <div className="flex text-white justify-center lg:text-6xl text-4xl font-bold text-center">
           Discover your next experience
         </div>
-        <div className="lg:flex hidden justify-center">
+        <div className="flex justify-center">
             <SearchBar />
         </div> {/* SEARCH FUNCTIONALITY NOT FUNCTIONAL YET*/}
-        <p className="text-center text-lg text-white font-extrabold">
+        <p className="text-center text-lg text-white md:font-extrabold font-semibold my-2">
           or
         </p>
-        
-
-        {/* <div className="flex lg:hidden">
-            
-          {!isOpen ? (
-            <SearchBar />
-          ) : (
-            <></>
-          )}
-        </div> */}
       </div>
       <Link href="/create" className="text-center justify-center flex w-fit">
           <Button className="justify-center w-fit">Create Community</Button>
-        </Link>
+      </Link>
     </div>
   );
 };

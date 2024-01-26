@@ -2,12 +2,16 @@
 
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { FaRegTrashAlt } from "react-icons/fa";
+import DeleteComment from "./DeleteComment";
 
 interface CommentCardsProps {
   id: string;
   content: string;
-  author: Promise<string | null | undefined>;
+  author: string | null;
   date: string;
+  owner: boolean;
+  authorId: string;
 }
 
 const CommentCards: React.FC<CommentCardsProps> = ({
@@ -15,8 +19,9 @@ const CommentCards: React.FC<CommentCardsProps> = ({
   content,
   author,
   date,
+  owner,
+  authorId,
 }) => {
-  const router = useRouter();
 
   return (
     <div className="w-full p-3 border-zinc-200 border-b flex flex-col">
@@ -28,7 +33,10 @@ const CommentCards: React.FC<CommentCardsProps> = ({
           <time dateTime={date}>{format(date, "MMMM d, yyyy")}</time>
         </p>
       </div>
-      <div className="text-sm mt-2">{content}</div>
+      <div className="text-sm mt-2 flex justify-between">
+        {content}
+        <DeleteComment id={id} authorId={authorId} isOwner={owner} />
+      </div>
     </div>
   );
 };

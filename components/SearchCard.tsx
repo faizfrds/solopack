@@ -27,8 +27,6 @@ const SearchCard: React.FC<SearchCardProps> = ({ name, state, country }) => {
       setIsLoading(false);
     }
 
-    if (isLoading) toast.loading("Redirecting")
-
   }, [isRedirected, isLoading]);
 
   // If you have a different way to detect the completion of the redirection,
