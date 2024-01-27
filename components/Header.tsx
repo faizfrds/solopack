@@ -16,7 +16,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className }) => {
 
   return (
-    <div className="flex flex-col items-center justify-center h-[90vh] md:h-screen bg-fixed bg-center bg-cover bg-[url('/marquee-pic.jpeg')] md:p-2 relative">
+    <div className="flex flex-col items-center justify-center h-[93vh] md:h-screen bg-fixed bg-center bg-cover bg-[url('/marquee-pic.jpeg')] md:p-2 relative">
       <div className="md:w-8/12 w-10/12 text-center">
         <div className="flex text-white justify-center lg:text-6xl text-4xl font-bold text-center">
           Discover your next experience

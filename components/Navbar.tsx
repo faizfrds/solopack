@@ -20,9 +20,9 @@ const Navbar: React.FC<NavbarProps> = async ({ children }) => {
   return (
     <div>
       <div className="flex justify-center bg-transparent text-center flex-no-wrap top-0 relative">
-        <div className="flex justify-between text-center items-center w-full md:mx-12 mx-3 p-3  text-rose-400">
+        <div className="flex justify-between text-center items-center w-full md:mx-12 p-3  text-rose-400">
           <div>
-            <HiMenu size={20} className=" text-rose-400" />
+            <HiMenu size={20} className="text-rose-400" />
           </div>
           <Link href="/">
             <h1 className="text-3xl font-bold">Solopack</h1>

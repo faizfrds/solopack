@@ -59,7 +59,9 @@ const PostsList = async ({
 
   return (
     <div className="flex flex-col w-full gap-y-2">
-      {items.map((post) => (
+      {(items.length === 0) ? <p className="mt-4 text-center">
+        No posts yet. Create one!
+      </p> : items.map((post) => (
         <PostCards
           id={post.id}
           title={post.title}
@@ -69,6 +71,7 @@ const PostsList = async ({
           email={post.author.email}
         />
       ))}
+      
     </div>
   );
 };

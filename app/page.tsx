@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div className="relative">
-      <div className="h-[86vh]">
+      <div className="">
         <Header />
       </div>
     </div>

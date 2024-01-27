@@ -6,7 +6,7 @@ import { HiArrowLeft } from "react-icons/hi";
 const SubmitPageHeader = () => {
   const router = useRouter();
   return (
-    <button>
+    <button className="ml-3">
       <HiArrowLeft onClick={() => router.back()} />
     </button>
   );

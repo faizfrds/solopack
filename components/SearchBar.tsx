@@ -53,7 +53,7 @@ const SearchBar = () => {
 
   return (
     <div className="flex items-center justify-center pt-5 w-screen">
-      <div className="flex flex-col md:w-[50%]">
+      <div className="flex flex-col md:w-[50%] items-center">
         <Input
           value={value}
           id="search"
@@ -65,7 +65,7 @@ const SearchBar = () => {
           onKeyDown={handleKeyPress}
           autoComplete="off"
         />
-        <div className="absolute bg-transparent mt-14 w-[33%] rounded-md">
+        <div className="absolute bg-transparent mt-14 md:w-[33%] w-[53%] rounded-md">
           {show ? <div className="flex flex-col w-full bg-white">
               {results.map((res) => (
                 res.state ? 
@@ -76,10 +76,10 @@ const SearchBar = () => {
       </div>
 
       <button
-        className="hidden animate md:flex bg-rose-400 hover:bg-rose-500 items-center ml-2 p-4 text-white font-bold rounded-full mt-5"
+        className="animate flex bg-rose-400 hover:bg-rose-500 items-center ml-2 md:p-4 p-1 text-white font-bold rounded-full mt-5"
         onClick={() => handleSearch()}
       >
-        <HiSearch size={25} />
+        <HiSearch size={20} />
       </button>
     </div>
   );

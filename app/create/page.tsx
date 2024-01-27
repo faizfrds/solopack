@@ -77,7 +77,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex-col items-center h-full max-w-3xl mx-auto">
+    <div className="flex-col items-center h-[90vh] max-w-3xl mx-auto">
       <div className="relative bg-white w-full h-fit rounded-lg space-y-6 py-10">
         <div className="flex gap-x-4 items-center">
           <HiArrowLeft
@@ -100,7 +100,7 @@ const Page = () => {
           <div className="relative w-[50%]">
             <Input
               value={locName}
-              onChange={(e) => setLocName(e.target.value)}
+              onChange={(e) => setLocName(e.target.value.toLowerCase())}
               className="capitalize"
               placeholder="Boston, Seattle, etc"
             />
@@ -109,7 +109,7 @@ const Page = () => {
           <div className="relative w-[50%]">
             <Input
               value={locState}
-              onChange={(e) => setLocState(e.target.value)}
+              onChange={(e) => setLocState(e.target.value.toLowerCase())}
               className="uppercase"
               placeholder="MA, WA, etc"
             />
