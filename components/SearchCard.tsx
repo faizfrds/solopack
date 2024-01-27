@@ -34,7 +34,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ name, state, country }) => {
 
   return (
     <button onClick={handleClick} disabled={isLoading}>
-      <div className="w-full p-2 hover:bg-zinc-200 bg-white border-2 border-zinc-200">
+      <div className="w-full p-2 hover:bg-zinc-200 bg-white border-2 border-zinc-200 capitalize">
         {isLoading ? "Redirecting..." : state ? `${name}, ${state}, ${country}` : `${name}, ${country}`}
       </div>
     </button>

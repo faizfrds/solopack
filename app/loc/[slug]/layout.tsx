@@ -18,6 +18,8 @@ const Layout = async ({
 }) => {
   const session = await getAuthSession();
 
+  slug = slug.replaceAll("%20", " ")
+
   const location = await db.location.findFirst({
     where: {
       name: slug,
@@ -61,7 +63,7 @@ const Layout = async ({
 
   return (
 
-    <div className="sm:container max-w-7xl mx-auto h-full pt-12 mb-3">
+    <div className="sm:container max-w-7xl mx-auto h-screen pt-12 mb-3">
       <div>
         <SubmitPageHeader />
 
@@ -70,7 +72,7 @@ const Layout = async ({
           {/* info sidebar */}
           <div className="hidden md:block overflow-hidden h-fit rounded-lg border-gray-200 order-first md:order-last">
             <div className="px-6 py-4">
-              <p className="font-semibold py-3">About {location.name}</p>
+              <p className="font-semibold py-3 capitalize">About {location.name}</p>
             </div>
 
             <dl className="divide-y divide-gray-200 px-6 py-4 test-sm leading-6 bg-white">

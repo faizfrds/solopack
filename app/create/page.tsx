@@ -35,9 +35,7 @@ const Page = () => {
 
   const handleSubmit = async () => {
     await createCommunity();
-    setLocName("");
-    setLocState("");
-    setLocCountry({label: ""});
+    router.push(`/loc/${locName}/`)
   };
 
   const { mutate: createCommunity, isPending } = useMutation({
@@ -68,7 +66,7 @@ const Page = () => {
       isPending ? toast.loading("Creating community") : null;
     },
     onSuccess: () => {
-      toast.success(`Succesfully created community for ${locName}`)
+      toast.success(`Succesfully created community`)
     }
   });
 

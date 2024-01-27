@@ -12,9 +12,10 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
-  const { slug } = params;
+  const slug = params.slug.replaceAll("%20", " ");
+  console.log(slug)
   const location = await db.location.findFirst({
-    where: { name: slug },
+    where: { name: slug},
     include: {
       posts: {
         include: {
@@ -29,16 +30,16 @@ const Page = async ({ params }: PageProps) => {
     },
   });
 
-  if (!location) return notFound();
+  if(!location) return;
 
   return (
     <div className="md:mx-0 mx-3">
-      <h1 className="font-bold text-3xl md:text-4xl h-14">
+      <h1 className="font-bold text-3xl md:text-4xl h-14 capitalize">
         {location.name}
-        {", " + location?.state}, {location.country}
+        {", " + location?.state?.toUpperCase()}, {location.country}
       </h1>
       {/* show posts in user feed */}
-      <h1 className="md:text-lg text-zinc-400">Posts for {location.name}</h1>
+      <h1 className="md:text-lg text-zinc-400 mt-3 capitalize">Posts for {location.name}</h1>
       <PostsList slug={slug}/>
     </div>
   );
